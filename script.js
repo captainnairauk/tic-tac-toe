@@ -75,6 +75,8 @@ const GameController = (() => {
 
   const checkDrawCondition = () => {
     //Logic to check for a draw
+    const board = GameBoard.getBoard();
+    return board.every(cell => cell !==''); //All cells are filled
   };
 
   const endGame = (message) => {
