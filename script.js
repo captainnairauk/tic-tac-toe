@@ -115,37 +115,33 @@ const GameController = (() => {
     switchTurns,
     getCurrentPlayer,
     checkWinCondition,
-    //Expose other necessary public methods
   };
 })();
 
 const DisplayController = (() => {
-  const gameBoardElement = document.getElementById("gameboard"); // Assuming you have an element with id 'gameboard' in your HTML
-  const messageElement = document.getElementById("message"); // Assuming an element for game messages
+  const gameBoardElement = document.getElementById("gameboard");
+  const messageElement = document.getElementById("message");
 
-  // API to render the game board based on the Gameboard module's state
   const renderBoard = (boardState) => {
-    gameBoardElement.innerHTML = ""; //Clear previous board
+    gameBoardElement.innerHTML = "";
     boardState.forEach((cell, index) => {
       const cellElement = document.createElement("div");
       cellElement.classList.add("cell");
-      cellElement.dataset.index = index; //Store index for event handling
-      cellElement.textContent = cell; //Display 'X', 'O', or empty
+      cellElement.dataset.index = index;
+      cellElement.textContent = cell;
       gameBoardElement.appendChild(cellElement);
     });
   };
 
-  //API to update game messages (e.g., current player, winner, draw)
   const updateMessage = (message) => {
     messageElement.textContent = message;
   };
 
-  //API to add event listeners to the board cells
   const addCellClickListeners = (handlerFunction) => {
     gameBoardElement.addEventListener("click", (event) => {
       if (event.target.classList.contains("cell")) {
         const index = parseInt(event.target.dataset.index);
-        handlerFunction(index); //Call the handler provided by game logic
+        handlerFunction(index);
       }
     });
   };
@@ -168,6 +164,6 @@ DisplayController.addCellClickListeners((index) => {
   GameController.makeMove(index);
 });
 
-document.getElementById("restartBtn").addEventListener("click", () =>{
-    startGame();
+document.getElementById("restartBtn").addEventListener("click", () => {
+  startGame();
 });
