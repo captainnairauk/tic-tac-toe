@@ -61,6 +61,16 @@ const GameController = (() => {
   const checkWinCondition = () => {
     //Logic to check if the player has won
     // This would likely interact with gameboard object
+    const board = GameBoard.getBoard();
+
+    for(const pattern of winningPatterns){
+        const [a,b,c] = pattern;
+        if(board[a] !== '' && board[a] === board[b] && board[a] === board[c]){
+            return true; //A win condition is met
+        }
+    }
+
+    return false; //No win condition met
   };
 
   const checkDrawCondition = () => {
@@ -94,6 +104,7 @@ const GameController = (() => {
     makeMove: handlePlayerMove,
     switchTurns,
     getCurrentPlayer,
+    checkWinCondition
     //Expose other necessary public methods
   };
 })();
