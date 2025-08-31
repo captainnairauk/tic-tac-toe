@@ -133,4 +133,9 @@ const DisplayController = (() => {
         });
     };
 
+    //API to update game messages (e.g., current player, winner, draw)
+    const updateMessage = (message) => {
+        messageElement.textContent = message;
+    };
+
 })();
