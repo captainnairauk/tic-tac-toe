@@ -1,14 +1,26 @@
-const gameBoard = {
-    grid: [
-        ['', '', ''],
-        ['', '', ''],
-        ['', '', '']
-    ],
-    gameStarted: false,
-    currentPlayer: 'X',
-    movesMade: 0
-};
+const gameBoard = (() => {
+    let board = ["", "", "", "", "", "", "", "", ""];
 
+    const isValidIndex = (index) => index >=0 && index<9;
 
-gameBoard.grid[1][1] = 'X';
-console.log(gameBoard.grid[1][1]);
+    const getBoard = () => [...board];
+
+    const placeMark = (index, mark) => {
+        if(isValidIndex(index) && board[index] === ""){
+            board[index] = mark;
+            return true;
+        }
+        return false;
+    };  
+
+    const resetBoard = () =>{
+        board = ["", "", "", "", "", "", "", "", ""];
+    };
+
+    return {
+        getBoard,
+        placeMark,
+        resetBoard,
+    };
+    
+})();
