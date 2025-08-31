@@ -22,5 +22,18 @@ const gameBoard = (() => {
         placeMark,
         resetBoard,
     };
-    
+
 })();
+
+
+const Player = (name, marker) => {
+    let _name = name;
+    let _mark = mark;
+
+    const getName = () => _name;
+    const getMark = () => _mark;
+
+    return {getName, getMark};
+};
+
+
