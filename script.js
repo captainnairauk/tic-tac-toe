@@ -74,6 +74,7 @@ const GameController = (() => {
 
   const endGame = (message) => {
     gameActive = false;
+    DisplayController.updateMessage(message);
   };
 
   const handlePlayerMove = (index) => {
