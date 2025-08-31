@@ -51,8 +51,8 @@ h1{
     background: #ddd;
 }
 
-.message{
-    margin-bottom: 15px;
+#message{
+    margin-bottom: 20px;
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -79,4 +79,13 @@ footer{
     text-align: center;
     background: #f1f1f1;
     width: 100%;
+}
+
+footer a{
+    color: inherit;
+    text-decoration: none;
+}
+
+footer a:hover{
+    text-decoration: underline;
 }
