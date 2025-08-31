@@ -76,7 +76,6 @@ const GameController = (() => {
 
   const endGame = (message) => {
     gameActive = false;
-    console.log(message);
   };
 
   const handlePlayerMove = (index) => {
@@ -86,12 +85,12 @@ const GameController = (() => {
 
     if(checkWinCondition()){
         endGame(`${currentPlayer.getName()} wins!`);
-        return true;
+        return `${currentPlayer.getName()} wins!`;
     }
 
     if(checkDrawCondition()){
         endGame("It's a draw!");
-        return true;
+        return "It's a draw!";
     }
 
     switchTurns();
@@ -116,4 +115,8 @@ const GameController = (() => {
     checkWinCondition
     //Expose other necessary public methods
   };
+})();
+
+const DisplayController = (() => {
+
 })();
