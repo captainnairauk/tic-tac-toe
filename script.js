@@ -76,6 +76,7 @@ const GameController = (() => {
 
   const endGame = (message) => {
     gameActive = false;
+    console.log(message);
   };
 
   const handlePlayerMove = (index) => {
