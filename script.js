@@ -39,12 +39,23 @@ const GameController = (() => {
   let gameActive = true;
   let player1;
   let player2;
+  const winningPatterns = [
+    [0, 1, 2], // Top row
+    [3, 4, 5], // Middle row
+    [6, 7, 8], // Bottom row
+    [0, 3, 6], // Left column
+    [1, 4, 7], // Middle column
+    [2, 5, 8], // Right column
+    [0, 4, 8], // Diagonal (top-left to bottom-right)
+    [2, 4, 6], // Diagonal (top-right to bottom-left)
+  ];
+
   // ... other private variables like win conditions, game state
 
   const switchTurns = () => {
     //Logic to switch between players
     //e.g, if current player is player 1, set to player 2, and vice versa
-    currentPlayer = (currentPlayer === player1) ? player2: player1;
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
   };
 
   const checkWinCondition = () => {
@@ -62,13 +73,13 @@ const GameController = (() => {
   };
 
   const handlePlayerMove = (index) => {
-    if(!gameActive) return;
+    if (!gameActive) return;
     //Call GameBoard's method to place mark
     //Check for win/draw after move
     //If no win/draw, switch turns
   };
 
-  const initializeGame = (p1, p2) =>{
+  const initializeGame = (p1, p2) => {
     //Set initial player, reset game board, set gameActive to true
     player1 = p1;
     player2 = p2;
@@ -82,8 +93,7 @@ const GameController = (() => {
     initialize: initializeGame,
     makeMove: handlePlayerMove,
     switchTurns,
-    getCurrentPlayer
+    getCurrentPlayer,
     //Expose other necessary public methods
   };
-
 })();
