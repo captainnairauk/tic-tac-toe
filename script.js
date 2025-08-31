@@ -40,62 +40,66 @@ const GameController = (() => {
   let player1;
   let player2;
   const winningPatterns = [
-    [0, 1, 2], // Top row
-    [3, 4, 5], // Middle row
-    [6, 7, 8], // Bottom row
-    [0, 3, 6], // Left column
-    [1, 4, 7], // Middle column
-    [2, 5, 8], // Right column
-    [0, 4, 8], // Diagonal (top-left to bottom-right)
-    [2, 4, 6], // Diagonal (top-right to bottom-left)
+    [0, 1, 2],
+    [3, 4, 5], 
+    [6, 7, 8], 
+    [0, 3, 6], 
+    [1, 4, 7], 
+    [2, 5, 8], 
+    [0, 4, 8], 
+    [2, 4, 6], 
   ];
 
-  // ... other private variables like win conditions, game state
-
   const switchTurns = () => {
-    //Logic to switch between players
-    //e.g, if current player is player 1, set to player 2, and vice versa
     currentPlayer = currentPlayer === player1 ? player2 : player1;
   };
 
   const checkWinCondition = () => {
-    //Logic to check if the player has won
-    // This would likely interact with gameboard object
+
     const board = GameBoard.getBoard();
 
     for(const pattern of winningPatterns){
         const [a,b,c] = pattern;
         if(board[a] !== '' && board[a] === board[b] && board[a] === board[c]){
-            return true; //A win condition is met
+            return true; 
         }
     }
 
-    return false; //No win condition met
+    return false; 
   };
 
   const checkDrawCondition = () => {
-    //Logic to check for a draw
+    
     const board = GameBoard.getBoard();
-    return board.every(cell => cell !==''); //All cells are filled
+    return board.every(cell => cell !==''); 
   };
 
   const endGame = (message) => {
     gameActive = false;
-    //Display win/draw message
   };
 
   const handlePlayerMove = (index) => {
     if (!gameActive) return;
-    //Call GameBoard's method to place mark
-    //Check for win/draw after move
-    //If no win/draw, switch turns
+    const success = GameBoard.placeMark(index, currentPlayer.getMark());
+    if(!success) return false;
+
+    if(checkWinCondition()){
+        endGame(`${currentPlayer.getName()} wins!`);
+        return true;
+    }
+
+    if(checkDrawCondition()){
+        endGame("It's a draw!");
+        return true;
+    }
+
+    switchTurns();
+    return true;
   };
 
   const initializeGame = (p1, p2) => {
-    //Set initial player, reset game board, set gameActive to true
     player1 = p1;
     player2 = p2;
-    //Determine who goes first, e.g., randomly or always player1
     currentPlayer = player1;
   };
 
