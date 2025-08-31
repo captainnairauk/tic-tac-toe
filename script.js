@@ -118,5 +118,19 @@ const GameController = (() => {
 })();
 
 const DisplayController = (() => {
+    const gameBoardElement = document.getElementById('gameboard'); // Assuming you have an element with id 'gameboard' in your HTML
+    const messageElement = document.getElementById('message'); // Assuming an element for game messages
+
+    // API to render the game board based on the Gameboard module's state
+    const renderBoard = (boardState) => {
+        gameBoardElement.innerHTML = ''; //Clear previous board
+        boardState.forEach((cell, index) => {
+            const cellElement = document.createElement('div');
+            cellElement.classList.add('cell');
+            cellElement.dataset.index = index; //Store index for event handling
+            cellElement.textContent = cell; //Display 'X', 'O', or empty
+            gameBoardElement.appendChild(cellElement); 
+        });
+    };
 
 })();
