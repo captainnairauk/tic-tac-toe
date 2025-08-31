@@ -79,21 +79,24 @@ const GameController = (() => {
 
   const handlePlayerMove = (index) => {
     if (!gameActive) return;
+
     const success = GameBoard.placeMark(index, currentPlayer.getMark());
     if (!success) return false;
 
+    DisplayController.renderBoard(GameBoard.getBoard());
+
     if (checkWinCondition()) {
       endGame(`${currentPlayer.getName()} wins!`);
-      return `${currentPlayer.getName()} wins!`;
+      return;
     }
 
     if (checkDrawCondition()) {
       endGame("It's a draw!");
-      return "It's a draw!";
+      return;
     }
 
     switchTurns();
-    return true;
+    DisplayController.updateMessage(`${currentPlayer.getName()}'s turn`);
   };
 
   const initializeGame = (p1, p2) => {
