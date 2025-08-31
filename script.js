@@ -101,6 +101,8 @@ const GameController = (() => {
     player1 = p1;
     player2 = p2;
     currentPlayer = player1;
+    gameActive = true;
+    GameBoard.resetBoard();
   };
 
   const getCurrentPlayer = () => currentPlayer;
