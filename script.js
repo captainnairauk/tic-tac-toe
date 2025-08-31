@@ -41,13 +41,13 @@ const GameController = (() => {
   let player2;
   const winningPatterns = [
     [0, 1, 2],
-    [3, 4, 5], 
-    [6, 7, 8], 
-    [0, 3, 6], 
-    [1, 4, 7], 
-    [2, 5, 8], 
-    [0, 4, 8], 
-    [2, 4, 6], 
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
   ];
 
   const switchTurns = () => {
@@ -55,23 +55,21 @@ const GameController = (() => {
   };
 
   const checkWinCondition = () => {
-
     const board = GameBoard.getBoard();
 
-    for(const pattern of winningPatterns){
-        const [a,b,c] = pattern;
-        if(board[a] !== '' && board[a] === board[b] && board[a] === board[c]){
-            return true; 
-        }
+    for (const pattern of winningPatterns) {
+      const [a, b, c] = pattern;
+      if (board[a] !== "" && board[a] === board[b] && board[a] === board[c]) {
+        return true;
+      }
     }
 
-    return false; 
+    return false;
   };
 
   const checkDrawCondition = () => {
-    
     const board = GameBoard.getBoard();
-    return board.every(cell => cell !==''); 
+    return board.every((cell) => cell !== "");
   };
 
   const endGame = (message) => {
@@ -81,16 +79,16 @@ const GameController = (() => {
   const handlePlayerMove = (index) => {
     if (!gameActive) return;
     const success = GameBoard.placeMark(index, currentPlayer.getMark());
-    if(!success) return false;
+    if (!success) return false;
 
-    if(checkWinCondition()){
-        endGame(`${currentPlayer.getName()} wins!`);
-        return `${currentPlayer.getName()} wins!`;
+    if (checkWinCondition()) {
+      endGame(`${currentPlayer.getName()} wins!`);
+      return `${currentPlayer.getName()} wins!`;
     }
 
-    if(checkDrawCondition()){
-        endGame("It's a draw!");
-        return "It's a draw!";
+    if (checkDrawCondition()) {
+      endGame("It's a draw!");
+      return "It's a draw!";
     }
 
     switchTurns();
@@ -112,30 +110,39 @@ const GameController = (() => {
     makeMove: handlePlayerMove,
     switchTurns,
     getCurrentPlayer,
-    checkWinCondition
+    checkWinCondition,
     //Expose other necessary public methods
   };
 })();
 
 const DisplayController = (() => {
-    const gameBoardElement = document.getElementById('gameboard'); // Assuming you have an element with id 'gameboard' in your HTML
-    const messageElement = document.getElementById('message'); // Assuming an element for game messages
+  const gameBoardElement = document.getElementById("gameboard"); // Assuming you have an element with id 'gameboard' in your HTML
+  const messageElement = document.getElementById("message"); // Assuming an element for game messages
 
-    // API to render the game board based on the Gameboard module's state
-    const renderBoard = (boardState) => {
-        gameBoardElement.innerHTML = ''; //Clear previous board
-        boardState.forEach((cell, index) => {
-            const cellElement = document.createElement('div');
-            cellElement.classList.add('cell');
-            cellElement.dataset.index = index; //Store index for event handling
-            cellElement.textContent = cell; //Display 'X', 'O', or empty
-            gameBoardElement.appendChild(cellElement); 
-        });
-    };
+  // API to render the game board based on the Gameboard module's state
+  const renderBoard = (boardState) => {
+    gameBoardElement.innerHTML = ""; //Clear previous board
+    boardState.forEach((cell, index) => {
+      const cellElement = document.createElement("div");
+      cellElement.classList.add("cell");
+      cellElement.dataset.index = index; //Store index for event handling
+      cellElement.textContent = cell; //Display 'X', 'O', or empty
+      gameBoardElement.appendChild(cellElement);
+    });
+  };
 
-    //API to update game messages (e.g., current player, winner, draw)
-    const updateMessage = (message) => {
-        messageElement.textContent = message;
-    };
+  //API to update game messages (e.g., current player, winner, draw)
+  const updateMessage = (message) => {
+    messageElement.textContent = message;
+  };
 
+  //API to add event listeners to the board cells
+  const addCellClickListeners = (handlerFunction) => {
+    gameBoardElement.addEventListener('click', (event) => {
+        if(event.target.classList.contains('cell')){
+            const index = parseInt(event.target.dataset.index);
+            handlerFunction(index); //Call the handler provided by game logic
+        }
+    });
+  };
 })();
