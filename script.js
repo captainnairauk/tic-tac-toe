@@ -152,3 +152,14 @@ const DisplayController = (() => {
 
   return {renderBoard, updateMessage, addCellClickListeners};
 })();
+
+const p1 = Player("Player 1", "X");
+const p2 = Player("Player 2", "O");
+
+GameController.initialize(p1, p2);
+DisplayController.renderBoard(GameBoard.getBoard());
+DisplayController.updateMessage(`${p1.getName()}'s turn`);
+
+DisplayController.addCellClickListeners((index) => {
+    GameController.makeMove(index);
+});
