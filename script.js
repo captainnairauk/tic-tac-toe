@@ -138,11 +138,13 @@ const DisplayController = (() => {
 
   //API to add event listeners to the board cells
   const addCellClickListeners = (handlerFunction) => {
-    gameBoardElement.addEventListener('click', (event) => {
-        if(event.target.classList.contains('cell')){
-            const index = parseInt(event.target.dataset.index);
-            handlerFunction(index); //Call the handler provided by game logic
-        }
+    gameBoardElement.addEventListener("click", (event) => {
+      if (event.target.classList.contains("cell")) {
+        const index = parseInt(event.target.dataset.index);
+        handlerFunction(index); //Call the handler provided by game logic
+      }
     });
   };
+
+  return {renderBoard, updateMessage, addCellClickListeners};
 })();
