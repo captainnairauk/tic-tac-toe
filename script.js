@@ -167,3 +167,7 @@ startGame();
 DisplayController.addCellClickListeners((index) => {
   GameController.makeMove(index);
 });
+
+document.getElementById("restartBtn").addEventListener("click", () =>{
+    startGame();
+});
